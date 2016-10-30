@@ -4,7 +4,7 @@ from weikegu.items import WeikeguItem
 import time
 import re
 from weikegu.cookie import account
-from weikegu import sendmail
+from weikegu import sendwechar
 from scrapy.conf import settings
 
 class WeikeguSpiderSpider(scrapy.Spider):
@@ -21,23 +21,25 @@ class WeikeguSpiderSpider(scrapy.Spider):
     def parse(self, response):
         # time.sleep(10)
         surplus = response.xpath('/html/body/div[3]/div[1]/span/text()')[0].extract()
-        print('==========>', surplus)
+        # print('==========>', surplus)
         pattern = re.compile(r'\d+')
 
         r = re.findall(pattern, surplus)
         # print(response.url())
 
         if r[0] != '0':
-            print('！！！！有了！！！！')
+            print('!!!!have cards!!!!')
             articlenum = str(response.url).split('/')[-1]
             u = 'http://www.315wkg.com/index.php/Index/cart/control/Index/tel/productcontent/gId/{}/gNum/{}'.format(articlenum, settings['SHOPPING_NUM'])
 
             mailcontext = '账号: {}  \n共有物品数量:{}\n物品连接: {}\n'.format(account, r[0], response.url)
 
-            sendmail.sendm(mailcontext)
+            sendmail = sendwechar.Mail()
+            sendmail.send_text('微客谷有卡了', mailcontext)
+            # sendmail.sendm(mailcontext)
             # yield scrapy.Request(u, callback=self.addcart)
         else:
-            print('！！！！没有！！！！')
+            print('!!!!None!!!!')
     #
     # def addcart(self,response):
     #     print("账号", account, '添加购物车成功')
