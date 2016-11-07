@@ -14,7 +14,7 @@ class WeikeguSpiderSpider(scrapy.Spider):
         'http://www.315wkg.com/index.php/Index/productcontent/gId/96',
         'http://www.315wkg.com/index.php/Index/productcontent/gId/124',
         'http://www.315wkg.com/index.php/Index/productcontent/gId/320',
-        # 'http://www.315wkg.com/index.php/Index/productcontent/gId/707',
+        #'http://www.315wkg.com/index.php/Index/productcontent/gId/707',
     )
 # 添加购物车 10个 http://www.315wkg.com/index.php/Index/cart/control/Index/tel/productcontent/gId/320/gNum/10
 
@@ -22,17 +22,17 @@ class WeikeguSpiderSpider(scrapy.Spider):
         # time.sleep(10)
         surplus = response.xpath('/html/body/div[3]/div[1]/span/text()')[0].extract()
         # print('==========>', surplus)
-        pattern = re.compile(r'\d+')
+        pattern = re.compile(r'[-]{0,1}\d+')
 
         r = re.findall(pattern, surplus)
         # print(response.url())
-
-        if r[0] != '0':
+        print(int(r[0])>0)
+        if r[0] > '0':
             print('!!!!have cards!!!!')
             articlenum = str(response.url).split('/')[-1]
             u = 'http://www.315wkg.com/index.php/Index/cart/control/Index/tel/productcontent/gId/{}/gNum/{}'.format(articlenum, settings['SHOPPING_NUM'])
 
-            mailcontext = '账号: {}  \n共有物品数量:{}\n物品连接: {}\n'.format(account, r[0], response.url)
+            mailcontext = '共有物品数量:{}\n物品连接: {}\n'.format(r[0], response.url)
 
             sendmail = sendwechar.Mail()
             sendmail.send_text('微客谷有卡了', mailcontext)
