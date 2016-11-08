@@ -28,14 +28,14 @@ class WeikeguSpiderSpider(scrapy.Spider):
         # print(response.url())
         print(int(r[0])>0)
         if r[0] > '0':
-            print('!!!!have cards!!!!')
             articlenum = str(response.url).split('/')[-1]
+            print('!!!!have cards!!!! ', articlenum)
             u = 'http://www.315wkg.com/index.php/Index/cart/control/Index/tel/productcontent/gId/{}/gNum/{}'.format(articlenum, settings['SHOPPING_NUM'])
 
             mailcontext = '共有物品数量:{}\n物品连接: {}\n'.format(r[0], response.url)
 
             sendmail = sendwechar.Mail()
-            sendmail.send_text('微客谷有卡了', mailcontext)
+            sendmail.send_text('微客谷有卡了 {}'.format(articlenum), mailcontext)
             # sendmail.sendm(mailcontext)
             # yield scrapy.Request(u, callback=self.addcart)
         else:
