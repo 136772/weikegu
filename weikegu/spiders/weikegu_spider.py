@@ -11,9 +11,10 @@ class WeikeguSpiderSpider(scrapy.Spider):
     name = "weikegu_spider"
     allowed_domains = ["www.315wkg.com"]
     start_urls = (
-        'http://www.315wkg.com/index.php/Index/productcontent/gId/96',
-        'http://www.315wkg.com/index.php/Index/productcontent/gId/124',
-        'http://www.315wkg.com/index.php/Index/productcontent/gId/320',
+        'http://www.315wkg.com/index.php?s=/Index/productcontent/gId/124',
+        'http://www.315wkg.com/index.php?s=/Index/productcontent/gId/320',
+        #'http://www.315wkg.com/index.php/Index/productcontent/gId/124',
+        #'http://www.315wkg.com/index.php/Index/productcontent/gId/320',
         #'http://www.315wkg.com/index.php/Index/productcontent/gId/707',
     )
 # 添加购物车 10个 http://www.315wkg.com/index.php/Index/cart/control/Index/tel/productcontent/gId/320/gNum/10

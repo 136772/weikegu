@@ -6,7 +6,7 @@ from email.header import Header
 from email.mime.text import MIMEText
 
 
-TOEMAIL = ['2998601175@qq.com', '13693060278@139.com', '136772@163.com', '13301157611@189.cn', '503305077@qq.com', '1835612606@qq.com']
+TOEMAIL = ['200903124@qq.com', '2998601175@qq.com', '13693060278@139.com', '136772@163.com', '13301157611@189.cn', '503305077@qq.com', '1835612606@qq.com']
 MAILFROM = '136772@163.com'
 class Mail:
     def __init__(self, mailServer="mail.server.com", user="user@mailaddress", pwd="mailpassword"):
