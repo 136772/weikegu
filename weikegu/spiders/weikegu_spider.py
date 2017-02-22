@@ -6,6 +6,7 @@ import re
 from weikegu.cookie import account
 from weikegu import sendwechar
 from scrapy.conf import settings
+import os
 
 class WeikeguSpiderSpider(scrapy.Spider):
     name = "weikegu_spider"
@@ -13,6 +14,7 @@ class WeikeguSpiderSpider(scrapy.Spider):
     start_urls = (
         'http://www.315wkg.com/index.php?s=/Index/productcontent/gId/124',
         'http://www.315wkg.com/index.php?s=/Index/productcontent/gId/320',
+        'http://www.315wkg.com/index.php?s=/Index/productcontent/gId/96',
         #'http://www.315wkg.com/index.php/Index/productcontent/gId/124',
         #'http://www.315wkg.com/index.php/Index/productcontent/gId/320',
         #'http://www.315wkg.com/index.php/Index/productcontent/gId/707',
@@ -34,9 +36,12 @@ class WeikeguSpiderSpider(scrapy.Spider):
             u = 'http://www.315wkg.com/index.php/Index/cart/control/Index/tel/productcontent/gId/{}/gNum/{}'.format(articlenum, settings['SHOPPING_NUM'])
 
             mailcontext = '共有物品数量:{}\n物品连接: {}\n'.format(r[0], response.url)
-
+            #p = os.popen("python3 ~/shopping/main.py {}".format(articlenum, 'r'))
+            #p.read()
+            #p.close()
             sendmail = sendwechar.Mail()
             sendmail.send_text('微客谷有卡了 {}'.format(articlenum), mailcontext)
+            
             # sendmail.sendm(mailcontext)
             # yield scrapy.Request(u, callback=self.addcart)
         else:
